@@ -1,0 +1,32 @@
+{
+  "name": "animal-excursion",
+  "version": "1.0.0",
+  "description": "Game app to raise awareness on animals",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Timinis/animal-excursion.git"
+  },
+  "keywords": [
+    "ejs",
+    "sql",
+    "api",
+    "express",
+    "node"
+  ],
+  "author": "Timothy Li, Jessica Lovell, Erin Eckerman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Timinis/animal-excursion/issues"
+  },
+  "homepage": "https://github.com/Timinis/animal-excursion#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "pg": "^7.4.3",
+    "superagent": "^4.0.0-beta.5"
+  }
+}
