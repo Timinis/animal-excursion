@@ -15,15 +15,15 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
 
 //routes
-app.get('/', (request, response) => {
-  response.sendFile('index.html', { root: './public' });
-});
+// app.get('/', (request, response) => {
+//   response.sendFile('index.html', { root: './public' });
+// });
 
-app.get('/start', (request, response) => {
-  dataPull().then(list => {
-    animalQuestionDisplay(list, response);
-  });
-});
+// app.get('/start', (request, response) => {
+//   dataPull().then(list => {
+//     animalQuestionDisplay(list, response);
+//   });
+// });
 
 // Object Creators for detail page render
 
@@ -52,15 +52,13 @@ const animalQuestionDisplay = (array, response) => {
       }
     });
   });
-};
+}
 
 function animalDetailDisplay(search) {
   let lowerSearch = search.toLowerCase();
   let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${lowerSearch}`;
   superagent.get(url).then(result => {
-    let description = new AnimalDetail(
-      Object.values(result.body.query.pages)[0]
-    );
+    let description = new Animal(Object.values(result.body.query.pages)[0]);
     return description;
   });
 }
