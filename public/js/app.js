@@ -21,6 +21,7 @@ function compileQuestion(questions) {
   });
 }
 
-function renderMap() {
-  var map = new google.maps.Map($('#map'));
-}
+// function renderMap() {
+
+//   var map = new google.maps.Map($('#map'), {zoom: 2, center:});
+// }

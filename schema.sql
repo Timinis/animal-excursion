@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS animals (
 INSERT INTO animals (name,region) 
 VALUES 
 ('Snow Leopard','Asia'),
-('Sushil''s Bushfrog','Asia'),
 ('Red Panda','Asia'),
 ('Sarus Crane','Asia'),
 ('Eld''s Deer', 'Asia'),
@@ -20,9 +19,6 @@ VALUES
 ('Regent Honeyeater', 'Australia'),
 ('Southern Bent-wing Bat', 'Australia'),
 ('Leadbeater''s Possum', 'Australia'),
-('Spotted Cuscus', 'Australia'),
-('Loggerhead Turtle', 'Australia'),
-('Grey Nurse Shark', 'Australia'),
 ('Orange-bellied Parrot', 'Australia'),
 ('Tristan Albatross', 'Antartica'),
 ('Abbott''s Booby', 'Antartica'),
@@ -34,7 +30,6 @@ VALUES
 ('Karpathos Frog', 'Europe'),
 ('Polar Bear', 'North America'),
 ('Island Fox', 'North America'),
-('Woodland Caribou', 'North America'),
 ('Black-footed Ferret', 'North America'),
 ('Red Wolf', 'North America'),
 ('Eastern Indigo Snake', 'North America'),
@@ -43,7 +38,7 @@ VALUES
 ('Morelet''s crocodile', 'North America'),
 ('Short-tailed Chinchilla', 'South America'),
 ('Golden Lion Tamarin', 'South America'),
-('Golden Poison Dart Frog', 'South America'),
+('Golden Poison Frog', 'South America'),
 ('Giant Otter', 'South America'),
 ('White-cheeked Spider Monkey', 'South America'),
 ('Chacoan Peccary', 'South America'),
@@ -58,7 +53,7 @@ VALUES
 ('Cape Vulture', 'Africa'),
 ('Pygmy Hippopotamus', 'Africa'),
 ('Addax', 'Africa'),
-('Rothschild’s Giraffe', 'Africa');
+('River dolphin', 'South America');
 
 
 
