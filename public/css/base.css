@@ -1,0 +1,14 @@
+* {
+    outline: 1px solid grey;
+}
+
+body {
+    margin: auto;
+    max-width: 700px;
+    font-family: 'Marvel', sans-serif;
+}
+
+#map {
+    height: 400px; /* The height is 400 pixels */
+    width: 100%;
+}
