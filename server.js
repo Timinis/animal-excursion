@@ -15,15 +15,15 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
 
 //routes
-// app.get('/', (request, response) => {
-//   response.sendFile('index.html', { root: './public' });
-// });
+app.get('/', (request, response) => {
+  response.sendFile('index.html', { root: './public' });
+});
 
-// app.get('/start', (request, response) => {
-//   dataPull().then(list => {
-//     animalQuestionDisplay(list, response);
-//   });
-// });
+app.get('/start', (request, response) => {
+  dataPull().then(list => {
+    animalQuestionDisplay(list, response);
+  });
+});
 
 // Object Creators for detail page render
 
@@ -50,7 +50,8 @@ const animalQuestionDisplay = (array, response) => {
       if (sendList.length === array.length) {
         response.send(sendList);
       }
-    });
+    })
+    .catch(console.error);
   });
 }
 
