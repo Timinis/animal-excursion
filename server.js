@@ -23,6 +23,7 @@ function animalQuestionDisplay(object) {
   superagent.get(url).then(result => {
     let image = Object.values(result.body.query.pages)[0];
     let image_url = image.thumbnail.source;
+    image_url = image_url.replace(/\/\w+px/, '/200px');
     console.log({ name: object, image_ur: image_url });
   });
 }
