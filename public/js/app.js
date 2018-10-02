@@ -20,3 +20,7 @@ function compileQuestion(questions) {
     $(`.question-area`).append(template(element));
   });
 }
+
+function renderMap() {
+  var map = new google.maps.Map($('#map'));
+}

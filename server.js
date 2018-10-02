@@ -1,5 +1,5 @@
 'use strict';
-
+//All the dependencies
 const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
@@ -8,7 +8,6 @@ require('dotenv').config();
 const client = new pg.Client(process.env.DATABASE_URL);
 
 client.connect();
-let questionList;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +26,9 @@ app.get('/start', (request, response) => {
 });
 
 // Object Creators for detail page render
+
+let questionList;
+
 function AnimalDetail(animalResult) {
   (this.name = animalResult.title), (this.description = animalResult.extract);
 }
