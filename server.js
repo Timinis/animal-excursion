@@ -38,20 +38,23 @@ const animalQuestionDisplay = (array, response) => {
   let sendList = [];
   array.forEach(object => {
     let lowerName = object.name.toLowerCase();
-    let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=pageimages&titles=${
-      lowerName
-    }`;
-    return superagent.get(url).then(result => {
-      let image = Object.values(result.body.query.pages)[0];
-      let image_url = image.thumbnail.source;
-      image_url = image_url.replace(/\/\w+px/, '/200px');
-      object.image_url = image_url;
-      sendList.push(object);
-      if (sendList.length === array.length) {
-        response.send(sendList);
-      }
-    })
-    .catch(console.error);
+
+    lowerName = lowerName.replace(/\s/g, '_');
+    lowerName = lowerName.replace(`'`, '%27');
+    let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=pageimages&titles=${lowerName}`;
+    return superagent
+      .get(url)
+      .then(result => {
+        let image = Object.values(result.body.query.pages)[0];
+        let image_url = image.thumbnail.source;
+        image_url = image_url.replace(/\/\w+px/, '/200px');
+        object.image_url = image_url;
+        sendList.push(object);
+        if (sendList.length === array.length) {
+          response.send(sendList);
+        }
+      })
+      .catch(console.error);
   });
 }
 
