@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS animals (
 INSERT INTO animals (name,region) 
 VALUES 
 ('Snow Leopard','Asia'),
-('Sushil''s Bushfrog','Asia'),
 ('Red Panda','Asia'),
 ('Sarus Crane','Asia'),
 ('Eld''s Deer', 'Asia'),

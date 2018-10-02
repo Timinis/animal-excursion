@@ -37,8 +37,9 @@ function AnimalDetail(animalResult) {
 const animalQuestionDisplay = (array, response) => {
   let sendList = [];
   array.forEach(object => {
+    let lowerName = object.name.toLowerCase();
     let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=pageimages&titles=${
-      object.name
+      lowerName
     }`;
     return superagent.get(url).then(result => {
       let image = Object.values(result.body.query.pages)[0];
@@ -54,7 +55,8 @@ const animalQuestionDisplay = (array, response) => {
 };
 
 function animalDetailDisplay(search) {
-  let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${search}`;
+  let lowerSearch = search.toLowerCase();
+  let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${lowerSearch}`;
   superagent.get(url).then(result => {
     let description = new AnimalDetail(
       Object.values(result.body.query.pages)[0]
