@@ -99,7 +99,7 @@ function animalDetailSave(array) {
       })
       .catch(console.error);
   });
-}
+};
 
 function dataPull() {
   const SQL = 'Select * from animals';
