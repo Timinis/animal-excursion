@@ -2,7 +2,9 @@ DROP TABLE IF EXISTS animals;
 
 CREATE TABLE IF NOT EXISTS animals (
   name VARCHAR(255) PRIMARY KEY,
-  region VARCHAR(255)
+  region VARCHAR(255),
+  image TEXT,
+  description TEXT
 );
 INSERT INTO animals (name,region) 
 VALUES 
