@@ -30,7 +30,6 @@ app.get('/score', highScoreSend);
 
 app.get('/details', animalDetailSave);
 
-
 // Object Creators for detail page render
 
 let questionList;
@@ -88,6 +87,7 @@ const saveDetails = (description) => {
 
 
 function animalDetailSave(array) {
+  console.log(array);
   array.forEach(object => {
     let lowerName = object.name.toLowerCase();
     lowerName = lowerName.replace(/\s/g, '_');
@@ -98,7 +98,6 @@ function animalDetailSave(array) {
       .then(result => {
         let description = Object.values(result.body.query.pages)[0].extract;
         saveDetails(description);
-        console.log(description);
       })
       .catch(console.error);
   });
