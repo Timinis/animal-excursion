@@ -9,9 +9,11 @@
 
     <!-- handlebar template -->
     <script type="text/x-handlebars-template" id="question-list">
-        <h3> {{ name }}</h3>
-        <img src="{{image_url}}"/>
-        <button type="submit"><a href="/public/pages/details.html">Learn More</a></button>
+        <div class="detail" >
+            <h3> {{ name }}</h3>
+            <img src="{{image_url}}"/>
+            <button type="submit" class="detail-button" id="{{ name }}">Learn More</button>
+        </div>
     </script>
 </head>
 
