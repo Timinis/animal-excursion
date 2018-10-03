@@ -1,12 +1,12 @@
 'use strict';
 $(document).ready(function() {
   console.log('jquery working');
-  displayDetail();
+  displayDetailRequest(); //display handlebars for details page
 });
+
 
 $('#start-game').on('click', startGame);
 $('#check-score').on('click', checkHighScore);
-
 function startGame(event) {
   event.preventDefault();
   console.log('start game');
@@ -15,7 +15,6 @@ function startGame(event) {
     method: 'GET'
   }).then(result => compileQuestion(result));
 }
-
 function compileQuestion(questions) {
   let template = Handlebars.compile($(`#question-list`).text());
   questions.forEach(element => {
@@ -26,13 +25,8 @@ function compileQuestion(questions) {
     localStorage.setItem('name', value);
 
     window.location.href = '/pages/details.html';
-    $.ajax({
-      url: '/details',
-      method: 'GET'
-    }).then(result => displayDetail(result));
   });
 }
-
 let highScoreInput = finalScore => {
   return `<form>
 <h2 type="text" id="current-score">${finalScore}</h2>
@@ -40,7 +34,6 @@ let highScoreInput = finalScore => {
 <button type = "submit" id = "enter-button">Submit Score</button>
 </form>`;
 };
-
 function compileHighScore(scores, finalScore) {
   if (finalScore === undefined) {
     finalScore = 0;
@@ -60,16 +53,26 @@ function compileHighScore(scores, finalScore) {
     }
   }
 }
-
 function checkHighScore(event) {
   $.ajax({
     url: `/score`,
     method: 'GET'
   }).then(result => compileHighScore(result));
 }
+function displayDetailRequest() {
+  let searchquery = localStorage.getItem('name');
+  console.log(searchquery);
+
+  $.ajax({
+    url: '/details',
+    method: 'GET',
+    data: {data: searchquery}
+  }).then(result => displayDetail(result));
+}
 
 function displayDetail(animal) {
   let template = Handlebars.compile($('#animal-template').text());
+  console.log(template(animal));
   $('#detail-container').append(template(animal));
 }
 
