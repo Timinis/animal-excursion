@@ -28,21 +28,26 @@ app.get('/start', (request, response) => {
 
 app.get('/score', highScoreSend);
 
-// app.get('/details', animalDetailSave);
+app.get('/details', animalDetails);
 
 // Object Creators for detail page render
 
 let questionList;
 
-function AnimalDetail(animalResult) {
-  (this.name = animalResult.title), (this.description = animalResult.extract);
+function animalDetails (request, response) {
+  const SQL = `Select * from animals where name=$1;`;
+  const value = request.query.data;
+
+  client.query(SQL, value)
+    .then(results => response.send(results))
+    .catch(console.error);
 }
 
 //function to store the questions in a object oritented format
 const animalQuestionDisplay = (array, response) => {
   let sendList = [];
   let SQL = 'SELECT * FROM animals;';
-  
+
   return client.query(SQL)
     .then(results=> {
       if (results.rows[0].image_url === null) {
