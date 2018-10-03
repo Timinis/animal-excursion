@@ -15,15 +15,15 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
 
 //routes
-// app.get('/', (request, response) => {
-//   response.sendFile('index.html', { root: './public' });
-// });
+app.get('/', (request, response) => {
+  response.sendFile('index.html', { root: './public' });
+});
 
-// app.get('/start', (request, response) => {
-//   dataPull().then(list => {
-//     animalQuestionDisplay(list, response);
-//   });
-// });
+app.get('/start', (request, response) => {
+  dataPull().then(list => {
+    animalQuestionDisplay(list, response);
+  });
+});
 
 // Object Creators for detail page render
 
@@ -55,7 +55,7 @@ const animalQuestionDisplay = (array, response) => {
       })
       .catch(console.error);
   });
-}
+};
 
 function animalDetailDisplay(search) {
   let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${search}`;
