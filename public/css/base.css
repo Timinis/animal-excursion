@@ -3,12 +3,67 @@
 }
 
 body {
-    margin: auto;
+    margin: 2vh auto;
     max-width: 700px;
-    font-family: 'Marvel', sans-serif;
+    font-family: 'Mali', cursive;
+    
+}
+
+#index-body {
+    background-image: url('../images/leaves-background.jpg')
+}
+
+button {
+    background-color: black;
+    color: white;
+    font-size: 2vh;
+    height: 7vh;
+    width: 50vw;
+    font-family: 'Mali', cursive;
+}
+
+h1 {
+    font-size: 8vw;
+    text-align: center;
+    background-color: black;
+    color: white;
+    line-height: 9vw;
+}
+
+li {
+    font-size: 4vw;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+#nav-bar {
+    display: grid;
+    grid-column: 2fr 2fr;
+
 }
 
 #map {
     height: 400px; /* The height is 400 pixels */
     width: 100%;
+}
+
+#index-button-container {
+    display: flex;
+    height: 8vh;
+}
+
+a:link, a:visited {
+    background-color: black;
+    color: white;
+    padding: 14px 25px;
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+    width: 50vw;
+    border: none;
+}
+
+a:hover, a:active {
+    background-color: grey;
 }
