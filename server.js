@@ -44,7 +44,7 @@ const animalQuestionDisplay = (array, response) => {
   let SQL = 'SELECT * FROM animals;';
   return client.query(SQL)
     .then(results=> {
-      if (results.rows[0].image !== null) {
+      if (results.rows[0].image_url === null) {
         array.forEach(object => {
           let lowerName = object.name.toLowerCase();
           lowerName = lowerName.replace(/\s/g, '_');
@@ -61,19 +61,19 @@ const animalQuestionDisplay = (array, response) => {
               if (sendList.length === array.length) {
                 response.send(sendList);
               }
-              saveImage(url);
+              saveImage(object.image_url);
             })
             .catch(console.error);
         });
       } else {
-        response.send(results);
+        response.send(results.rows);
       }
     })
     .catch(console.error);
 };
 
 const saveImage = (url) => {
-  let SQL = 'UPDATE animals SET image=$1;';
+  let SQL = 'UPDATE animals SET image_url=$1;';
   let values = [url];
   client.query(SQL, values);
 };
