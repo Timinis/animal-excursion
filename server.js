@@ -28,7 +28,7 @@ app.get('/start', (request, response) => {
 
 app.get('/score', highScoreSend);
 
-app.get('/details', animalDetailSave);
+// app.get('/details', animalDetailSave);
 
 // Object Creators for detail page render
 

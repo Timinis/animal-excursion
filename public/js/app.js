@@ -17,6 +17,7 @@ function startGame(event) {
 }
 
 function compileQuestion(questions) {
+  console.log(questions);
   let template = Handlebars.compile($(`#question-list`).text());
   questions.forEach(element => {
     $(`.question-area`).append(template(element));
