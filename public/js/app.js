@@ -17,7 +17,6 @@ function startGame(event) {
 }
 
 function compileQuestion(questions) {
-  console.log(questions);
   let template = Handlebars.compile($(`#question-list`).text());
   questions.forEach(element => {
     $(`.question-area`).append(template(element));
@@ -26,12 +25,11 @@ function compileQuestion(questions) {
     let value = event.target.id;
     localStorage.setItem('name', value);
 
-    window.location.href='/pages/details.html';
+    window.location.href = '/pages/details.html';
     $.ajax({
       url: '/details',
       method: 'GET'
-    })
-      .then(result => displayDetail(result));
+    }).then(result => displayDetail(result));
   });
 }
 
@@ -74,7 +72,6 @@ function displayDetail(animal) {
   let template = Handlebars.compile($('#animal-template').text());
   $('#detail-container').append(template(animal));
 }
-
 
 function initMap() {
   // The location of Uluru
