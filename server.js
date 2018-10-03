@@ -25,6 +25,8 @@ app.get('/start', (request, response) => {
   });
 });
 
+app.get('/score', highScoreSend);
+
 // Object Creators for detail page render
 
 let questionList;
@@ -63,7 +65,9 @@ function animalDetailDisplay(search) {
   lowerName = lowerName.replace(`'`, '%27');
   let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${lowerName}`;
   superagent.get(url).then(result => {
-    let description = new AnimalDetail(Object.values(result.body.query.pages)[0]);
+    let description = new AnimalDetail(
+      Object.values(result.body.query.pages)[0]
+    );
     return description;
   });
 }
@@ -73,6 +77,15 @@ function dataPull() {
   return client.query(SQL).then(result => {
     questionList = result.rows;
     return questionList;
+  });
+}
+
+function highScoreSend(request, response) {
+  const SQL = 'Select * from highscore';
+  return client.query(SQL).then(result => {
+    console.log(result.rows);
+    let scoreList = result.rows;
+    response.send(scoreList);
   });
 }
 

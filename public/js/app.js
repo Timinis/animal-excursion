@@ -3,8 +3,8 @@ $(document).ready(function() {
   console.log('jquery working');
 });
 
-
 $('#start-game').on('click', startGame);
+$('#check-score').on('click', checkHighScore);
 
 function startGame(event) {
   event.preventDefault();
@@ -20,13 +20,47 @@ function compileQuestion(questions) {
   questions.forEach(element => {
     $(`.question-area`).append(template(element));
   });
-  $('.detail').on('click', function(event){
-    let value=event.target.id;
+  $('.detail').on('click', function(event) {
+    let value = event.target.id;
     localStorage.setItem('name', value);
-    window.location.href='/pages/details.html';
+    window.location.href = '/pages/details.html';
   });
 }
 
+let highScoreInput = finalScore => {
+  return `<form>
+<h2 type="text" id="current-score">${finalScore}</h2>
+<input type = "text" id = "enter-user" required></input>
+<button type = "submit" id = "enter-button">Submit Score</button>
+</form>`;
+};
+
+function compileHighScore(scores, finalScore) {
+  if (finalScore === undefined) {
+    finalScore = 0;
+  }
+  if (!scores.length) {
+    console.log('I should work');
+    let template = Handlebars.compile($(`#no-score`).text());
+    $('.score-area').append(
+      template({ text: 'No Scores Yet, please submit your name' })
+    );
+    $('.score-area').append(highScoreInput(finalScore));
+  } else {
+    let template = Handlebars.compile($(`high-score`).text());
+    $('.score-area').append(scores.forEach(element => template(element)));
+    if (finalScore > scores[scores.length - 1]) {
+      $('.score-area').append(highScoreInput(finalScore));
+    }
+  }
+}
+
+function checkHighScore(event) {
+  $.ajax({
+    url: `/score`,
+    method: 'GET'
+  }).then(result => compileHighScore(result));
+}
 
 function initMap() {
   // The location of Uluru
@@ -82,4 +116,3 @@ function initMap() {
     console.log('Africa is selected');
   });
 }
-

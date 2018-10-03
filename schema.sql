@@ -57,5 +57,8 @@ VALUES
 ('Addax', 'Africa'),
 ('River dolphin', 'South America');
 
-
-
+CREATE TABLE IF NOT EXISTS highscore (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  score INT
+);
