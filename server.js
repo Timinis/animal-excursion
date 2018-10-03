@@ -36,10 +36,10 @@ let questionList;
 
 function animalDetails (request, response) {
   const SQL = `Select * from animals where name=$1;`;
-  const value = request.query.data;
+  const value = [request.query.data];
 
   client.query(SQL, value)
-    .then(results => response.send(results))
+    .then(results => response.send(results.rows[0]))
     .catch(console.error);
 }
 

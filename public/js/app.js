@@ -1,8 +1,10 @@
 'use strict';
 $(document).ready(function() {
   console.log('jquery working');
-  displayDetail();
+  displayDetailRequest(); //display handlebars for details page
 });
+
+
 $('#start-game').on('click', startGame);
 $('#check-score').on('click', checkHighScore);
 function startGame(event) {
@@ -21,18 +23,8 @@ function compileQuestion(questions) {
   $('.detail').on('click', function(event) {
     let value = event.target.id;
     localStorage.setItem('name', value);
-    let searchquery = localStorage.getItem('name');
-    console.log('searchquery', searchquery);
-
-    displayDetail({title: 'Rabbit', image_url: 'https://placehold.it/200', description: 'Rabbits are cute and tough.', keyword: 'yes'});
 
     window.location.href = '/pages/details.html';
-    
-    $.ajax({
-      url: '/details',
-      method: 'GET',
-      data: {data: searchquery}
-    }).then(result => displayDetail(result));
   });
 }
 let highScoreInput = finalScore => {
@@ -67,10 +59,23 @@ function checkHighScore(event) {
     method: 'GET'
   }).then(result => compileHighScore(result));
 }
+function displayDetailRequest() {
+  let searchquery = localStorage.getItem('name');
+  console.log(searchquery);
+
+  $.ajax({
+    url: '/details',
+    method: 'GET',
+    data: {data: searchquery}
+  }).then(result => displayDetail(result));
+}
+
 function displayDetail(animal) {
   let template = Handlebars.compile($('#animal-template').text());
+  console.log(template(animal));
   $('#detail-container').append(template(animal));
 }
+
 function initMap() {
   // The location of Uluru
   let center = { lat: 0, lng: 0 };
