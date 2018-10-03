@@ -55,7 +55,7 @@ const animalQuestionDisplay = (array, response) => {
       })
       .catch(console.error);
   });
-}
+};
 
 function animalDetailDisplay(search) {
   let lowerName = search.name.toLowerCase();
