@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS animals;
 CREATE TABLE IF NOT EXISTS animals (
   name VARCHAR(255) PRIMARY KEY,
   region VARCHAR(255),
-  image TEXT,
+  image_url TEXT,
   description TEXT
 );
 INSERT INTO animals (name,region) 
