@@ -58,9 +58,12 @@ const animalQuestionDisplay = (array, response) => {
 };
 
 function animalDetailDisplay(search) {
-  let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${search}`;
+  let lowerName = search.name.toLowerCase();
+  lowerName = lowerName.replace(/\s/g, '_');
+  lowerName = lowerName.replace(`'`, '%27');
+  let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${lowerName}`;
   superagent.get(url).then(result => {
-    let description = new Animal(Object.values(result.body.query.pages)[0]);
+    let description = new AnimalDetail(Object.values(result.body.query.pages)[0]);
     return description;
   });
 }
