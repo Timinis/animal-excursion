@@ -22,8 +22,11 @@ app.get('/', (request, response) => {
 app.get('/start', (request, response) => {
   dataPull().then(list => {
     animalQuestionDisplay(list, response);
+    animalDetailSave(list);
   });
 });
+
+app.get('/details', animalDetailSave);
 
 // Object Creators for detail page render
 
@@ -36,37 +39,67 @@ function AnimalDetail(animalResult) {
 //function to store the questions in a object oritented format
 const animalQuestionDisplay = (array, response) => {
   let sendList = [];
+  let SQL = 'SELECT * FROM animals;';
+  return client.query(SQL)
+    .then(results=> {
+      if (results.rows[0].image !== null) {
+        array.forEach(object => {
+          let lowerName = object.name.toLowerCase();
+          lowerName = lowerName.replace(/\s/g, '_');
+          lowerName = lowerName.replace(`'`, '%27');
+          let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=pageimages&titles=${lowerName}`;
+          return superagent
+            .get(url)
+            .then(result => {
+              let image = Object.values(result.body.query.pages)[0];
+              let image_url = image.thumbnail.source;
+              image_url = image_url.replace(/\/\w+px/, '/200px');
+              object.image_url = image_url;
+              sendList.push(object);
+              if (sendList.length === array.length) {
+                response.send(sendList);
+              }
+              saveImage(url);
+            })
+            .catch(console.error);
+        });
+      } else {
+        response.send(results);
+      }
+    })
+    .catch(console.error);
+};
+
+const saveImage = (url) => {
+  let SQL = 'UPDATE animals SET image=$1;';
+  let values = [url];
+  client.query(SQL, values);
+};
+
+
+const saveDetails = (description) => {
+  let SQL = 'UPDATE animals SET description=$1;';
+  let values = [description];
+  client.query(SQL, values);
+};
+
+
+function animalDetailSave(array) {
   array.forEach(object => {
     let lowerName = object.name.toLowerCase();
     lowerName = lowerName.replace(/\s/g, '_');
     lowerName = lowerName.replace(`'`, '%27');
-    let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=pageimages&titles=${lowerName}`;
-    return superagent
+    let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${lowerName}`;
+    superagent
       .get(url)
       .then(result => {
-        let image = Object.values(result.body.query.pages)[0];
-        let image_url = image.thumbnail.source;
-        image_url = image_url.replace(/\/\w+px/, '/200px');
-        object.image_url = image_url;
-        sendList.push(object);
-        if (sendList.length === array.length) {
-          response.send(sendList);
-        }
+        let description = Object.values(result.body.query.pages)[0].extract;
+        saveDetails(description);
+        console.log(description);
       })
       .catch(console.error);
   });
 };
-
-function animalDetailDisplay(search) {
-  let lowerName = search.name.toLowerCase();
-  lowerName = lowerName.replace(/\s/g, '_');
-  lowerName = lowerName.replace(`'`, '%27');
-  let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${lowerName}`;
-  superagent.get(url).then(result => {
-    let description = new AnimalDetail(Object.values(result.body.query.pages)[0]);
-    return description;
-  });
-}
 
 function dataPull() {
   const SQL = 'Select * from animals';
