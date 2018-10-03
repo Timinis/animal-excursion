@@ -26,7 +26,9 @@ app.get('/start', (request, response) => {
   });
 });
 
-// app.get('/details', animalDetailSave);
+app.get('/score', highScoreSend);
+
+app.get('/details', animalDetailSave);
 
 // Object Creators for detail page render
 
@@ -99,13 +101,21 @@ function animalDetailSave(array) {
       })
       .catch(console.error);
   });
-}
-
+};
 function dataPull() {
   const SQL = 'Select * from animals';
   return client.query(SQL).then(result => {
     questionList = result.rows;
     return questionList;
+  });
+}
+
+function highScoreSend(request, response) {
+  const SQL = 'Select * from highscore';
+  return client.query(SQL).then(result => {
+    console.log(result.rows);
+    let scoreList = result.rows;
+    response.send(scoreList);
   });
 }
 
