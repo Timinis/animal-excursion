@@ -25,8 +25,6 @@ app.get('/start', (request, response) => {
   });
 });
 
-app.get('/start', (request) => animalDetailDisplay(request));
-
 // Object Creators for detail page render
 
 let questionList;
