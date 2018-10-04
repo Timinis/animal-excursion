@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS animals;
 
 CREATE TABLE IF NOT EXISTS animals (
-  name VARCHAR(255) PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
   region VARCHAR(255),
   image_url TEXT,
   description TEXT
