@@ -1,0 +1,39 @@
+@media only screen and (min-width: 769px) {
+    body {
+        width: 70vw;
+        margin: auto;
+    }
+
+    main.about-us {
+        display: flex;
+        justify-content: center;
+    }
+
+    div.about-us {
+        padding: 30px;
+        text-align: center;
+    }
+
+    header {
+        grid-row: 1;
+    }
+
+    h1 {
+        background-color: grey;
+        color: white;
+        font-size: 50px;
+        padding: 10px;
+    }
+      
+    ul {
+        display: inline-block;
+        width: 100%;
+    }
+    
+    li {
+        background-color: grey;
+        color: white;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+}
