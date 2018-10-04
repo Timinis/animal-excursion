@@ -7,6 +7,17 @@ $(document).ready(function() {
 $('#start-game').on('click', startGame);
 $('#check-score').on('click', checkHighScore);
 
+let inputRegion;
+let markerAsia;
+let markerAustralia;
+let markerAntartica;
+let markerAfrica;
+let markerNorthAmerica;
+let markerSouthAmerica;
+let turns;
+let lives;
+let questionList;
+
 function apiGrab() {
   console.log('start map');
   $.ajax({
@@ -21,23 +32,41 @@ function apiGrab() {
 
 function startGame(event) {
   event.preventDefault();
+  lives = 5;
+  turns = 0;
   console.log('start game');
   $.ajax({
     url: `/start`,
     method: 'GET'
-  }).then(result => compileQuestion(result));
+  }).then(result => compileQuestion(result, turns));
 }
-function compileQuestion(questions) {
-  let template = Handlebars.compile($(`#question-list`).text());
-  questions.forEach(element => {
-    $(`.question-area`).append(template(element));
-  });
+
+function compileQuestion(questions, turns) {
+  inputRegion = null;
+  questionList = questions;
+  console.log('i am called');
+  let template = Handlebars.compile($(`.question-list`).text());
+  $(`.question-area`).append(template(questions[turns]));
+
   $('.detail').on('click', function(event) {
     let value = event.target.id;
     localStorage.setItem('name', value);
-
     window.location.href = '/pages/details.html';
   });
+  markerAsia.addListener('click', asiaListener);
+}
+function asiaListener() {
+  inputRegion = 'Asia';
+  console.log(questionList);
+  if (inputRegion && questionList[turns].region === inputRegion) {
+    turns++;
+    google.maps.event.clearListeners(markerAsia, 'click');
+    return compileQuestion(questionList, turns);
+  } else if (inputRegion && questionList[turns].region !== inputRegion) {
+    turns++;
+    google.maps.event.clearListeners(markerAsia, 'click');
+    return compileQuestion(questionList, turns);
+  }
 }
 let highScoreInput = finalScore => {
   return `<form>
@@ -102,44 +131,41 @@ function initMap() {
     zoom: 1,
     center: center
   });
-  let markerAsia = new google.maps.Marker({ position: asia, map: map });
-  markerAsia.addListener('click', function() {
-    console.log('Asia is selected');
-  });
-  let markerAustralia = new google.maps.Marker({
+  markerAsia = new google.maps.Marker({ position: asia, map: map });
+  markerAustralia = new google.maps.Marker({
     position: australia,
     map: map
   });
   markerAustralia.addListener('click', function() {
-    console.log('Australia is selected');
+    inputRegion = 'Australia';
   });
-  let markerAntartica = new google.maps.Marker({
+  markerAntartica = new google.maps.Marker({
     position: antartica,
     map: map
   });
   markerAntartica.addListener('click', function() {
-    console.log('Antartica is selected');
+    inputRegion = 'Antartica';
   });
-  let markerSouthAmerica = new google.maps.Marker({
+  markerSouthAmerica = new google.maps.Marker({
     position: southAmerica,
     map: map
   });
   markerSouthAmerica.addListener('click', function() {
-    console.log('South America is selected');
+    inputRegion = 'South America';
   });
-  let markerNorthAmerica = new google.maps.Marker({
+  markerNorthAmerica = new google.maps.Marker({
     position: northAmerica,
     map: map
   });
   markerNorthAmerica.addListener('click', function() {
-    console.log('North America is selected');
+    inputRegion = 'North America';
   });
-  let markerAfrica = new google.maps.Marker({
+  markerAfrica = new google.maps.Marker({
     position: africa,
     map: map
   });
   markerAfrica.addListener('click', function() {
-    console.log('Africa is selected');
+    inputRegion = 'Africa';
   });
 }
 
