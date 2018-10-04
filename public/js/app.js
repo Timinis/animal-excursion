@@ -33,6 +33,7 @@ function apiGrab() {
 
 function startGame(event) {
   event.preventDefault();
+
   let turnCount = localStorage.getItem('turns');
   console.log(turnCount);
   if(turnCount === 0 || turnCount === undefined || turnCount === null){
