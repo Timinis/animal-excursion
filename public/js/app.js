@@ -36,7 +36,7 @@ function startGame(event) {
   lives = 5;
   turns = 0;
   totalScore = 0;
-  console.log('start game');
+  $('#start-game').css({ display: 'none' });
   $.ajax({
     url: `/start`,
     method: 'GET'

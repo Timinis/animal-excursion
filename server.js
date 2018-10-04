@@ -34,8 +34,6 @@ app.get('/api-key', (req, res) => {
 
 // Object Creators for detail page render
 
-let questionList;
-
 function animalDetails(request, response) {
   const SQL = `Select * from animals where name=$1;`;
   const value = [request.query.data];

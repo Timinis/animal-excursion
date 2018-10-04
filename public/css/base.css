@@ -1,69 +1,42 @@
 * {
-    outline: 1px solid grey;
+  outline: 1px solid grey;
 }
 
 body {
-    margin: 2vh auto;
-    max-width: 700px;
-    font-family: 'Mali', cursive;
-    
+  font-family: 'Mali', cursive;
+  display: grid;
+  width: 100vw;
+  grid-template-rows: 100px 100px 100px 400px 200px 100px;
 }
 
 #index-body {
-    background-image: url('../images/leaves-background.jpg')
-}
-
-button {
-    background-color: black;
-    color: white;
-    font-size: 2vh;
-    height: 7vh;
-    width: 50vw;
-    font-family: 'Mali', cursive;
+  background-image: url('../images/leaves-background.jpg');
 }
 
 h1 {
-    font-size: 8vw;
-    text-align: center;
-    background-color: black;
-    color: white;
-    line-height: 9vw;
+  grid-row: 1;
+  text-align: center;
+  background-color: black;
+  color: white;
+  height: 100%;
 }
 
+ul {
+  grid-row: 2;
+  height: 100%;
+  display: inline-block;
+  width: 100%;
+}
 li {
-    font-size: 4vw;
-    background-color: black;
-    color: white;
-    text-align: center;
+  font-size: 4vw;
+  background-color: black;
+  color: white;
+  text-align: center;
 }
-
-#nav-bar {
-    display: grid;
-    grid-column: 2fr 2fr;
-
-}
-
-#map {
-    height: 400px; /* The height is 400 pixels */
-    width: 100%;
-}
-
 #index-button-container {
-    display: flex;
-    height: 8vh;
+  grid-row: 3;
 }
-
-a:link, a:visited {
-    background-color: black;
-    color: white;
-    padding: 14px 25px;
-    text-align: center; 
-    text-decoration: none;
-    display: inline-block;
-    width: 50vw;
-    border: none;
-}
-
-a:hover, a:active {
-    background-color: grey;
+#map {
+  grid-row: 4;
+  height: 100%;
 }
