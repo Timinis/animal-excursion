@@ -14,6 +14,7 @@ let markerAntartica;
 let markerAfrica;
 let markerNorthAmerica;
 let markerSouthAmerica;
+let markerEurope;
 let turns;
 let lives;
 let questionList;
@@ -31,12 +32,19 @@ function apiGrab() {
   );
 }
 
-function startGame(event) {
+function startGame() {
   event.preventDefault();
 
   let turnCount = localStorage.getItem('turns');
+  let livesCount = localStorage.getItem('turns');
   console.log(turnCount);
-  if(turnCount === 0 || turnCount === undefined || turnCount === null){
+  if (
+    turnCount === 0 ||
+    turnCount === undefined ||
+    turnCount === null ||
+    turnCount === 50 ||
+    livesCount === 0
+  ) {
     lives = 5;
     turns = 0;
     totalScore = 0;
@@ -64,21 +72,23 @@ function compileQuestion(questions, turns) {
     localStorage.setItem('name', value);
     window.location.href = '/pages/details.html';
   });
-  console.log('turns', turns);
+  $('#game-state').html(
+    `<h3>Lives: ${lives}</h3><h3>Score: ${totalScore}</h3>`
+  );
   markerAsia.addListener('click', asiaListener);
   markerAfrica.addListener('click', africaListener);
   markerAntartica.addListener('click', antarticaListener);
   markerAustralia.addListener('click', australiaListener);
   markerNorthAmerica.addListener('click', northAmericaListener);
   markerSouthAmerica.addListener('click', southAmericaListener);
+  markerEurope.addListener('click', europeListener);
   localStoragePersistence();
 }
 
-
 function localStorageGet() {
-  lives = localStorage.getItem('lives');
-  turns = localStorage.getItem('turns');
-  totalScore = localStorage.getItem('score');
+  lives = parseInt(localStorage.getItem('lives'));
+  turns = parseInt(localStorage.getItem('turns'));
+  totalScore = parseInt(localStorage.getItem('score'));
 }
 
 function localStoragePersistence() {
@@ -88,8 +98,7 @@ function localStoragePersistence() {
 }
 
 function removeQuestion() {
-  console.log('here');
-  $('.detail').hide();
+  $('.detail').css({ display: 'none' });
 }
 
 function southAmericaListener() {
@@ -100,7 +109,10 @@ function southAmericaListener() {
     totalScore += 100;
     google.maps.event.clearListeners(markerSouthAmerica, 'click');
     if (turns === 50) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      $('#start-game').hide();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -110,9 +122,13 @@ function southAmericaListener() {
     lives--;
     google.maps.event.clearListeners(markerSouthAmerica, 'click');
     if (turns === 50 || lives === 0) {
-      compileHighScore(totalScore);
+      removeQuestion();
+      checkHighScore();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
     } else {
       removeQuestion();
+
       return compileQuestion(questionList, turns);
     }
   }
@@ -125,7 +141,11 @@ function northAmericaListener() {
     totalScore += 100;
     google.maps.event.clearListeners(markerNorthAmerica, 'click');
     if (turns === 50) {
-      compileHighScore(totalScore);
+      removeQuestion();
+      checkHighScore();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -135,7 +155,11 @@ function northAmericaListener() {
     lives--;
     google.maps.event.clearListeners(markerNorthAmerica, 'click');
     if (turns === 50 || lives === 0) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -150,7 +174,11 @@ function australiaListener() {
     totalScore += 100;
     google.maps.event.clearListeners(markerAustralia, 'click');
     if (turns === 50) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -160,7 +188,11 @@ function australiaListener() {
     lives--;
     google.maps.event.clearListeners(markerAustralia, 'click');
     if (turns === 50 || lives === 0) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -175,7 +207,11 @@ function antarticaListener() {
     totalScore += 100;
     google.maps.event.clearListeners(markerAntartica, 'click');
     if (turns === 50) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -185,7 +221,11 @@ function antarticaListener() {
     lives--;
     google.maps.event.clearListeners(markerAntartica, 'click');
     if (turns === 50 || lives === 0) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -200,7 +240,11 @@ function africaListener() {
     totalScore += 100;
     google.maps.event.clearListeners(markerAfrica, 'click');
     if (turns === 50) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -210,7 +254,11 @@ function africaListener() {
     lives--;
     google.maps.event.clearListeners(markerAfrica, 'click');
     if (turns === 50 || lives === 0) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -224,7 +272,11 @@ function asiaListener() {
     totalScore += 100;
     google.maps.event.clearListeners(markerAsia, 'click');
     if (turns === 50) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
@@ -234,27 +286,63 @@ function asiaListener() {
     lives--;
     google.maps.event.clearListeners(markerAsia, 'click');
     if (turns === 50 || lives === 0) {
-      compileHighScore(totalScore);
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
     } else {
       removeQuestion();
       return compileQuestion(questionList, turns);
     }
   }
 }
+
+function europeListener() {
+  inputRegion = 'Europe';
+  if (inputRegion && questionList[turns].region === inputRegion) {
+    turns++;
+    totalScore += 100;
+    google.maps.event.clearListeners(markerEurope, 'click');
+    if (turns === 50) {
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  } else if (inputRegion && questionList[turns].region !== inputRegion) {
+    turns++;
+    lives--;
+    google.maps.event.clearListeners(markerEurope, 'click');
+    if (turns === 50 || lives === 0) {
+      checkHighScore();
+      removeQuestion();
+      $('#start-game').hide();
+      $('#game-state').html(`<h3>Game Over</h3>`);
+      localStorage.clear();
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  }
+}
+
 let highScoreInput = finalScore => {
   return `<form>
 <h2 type="text" id="current-score">${finalScore}</h2>
 <input type = "text" id = "enter-user" required></input>
-<button type = "submit" id = "enter-button">Submit Score</button>
+<button type = "submit" id = "enter-button">Submit Name</button>
 </form>`;
 };
-function compileHighScore(scores, finalScore) {
-  console.log(scores);
+function compileHighScore(scoresDB, finalScore) {
   if (finalScore === undefined) {
     finalScore = 0;
   }
-  if (scores > 0 || scores !== undefined) {
-
+  if (!scoresDB.length) {
     let template = Handlebars.compile($(`#no-score`).text());
     $('.score-area').append(
       template({ text: 'No Scores Yet, please submit your name' })
@@ -262,17 +350,17 @@ function compileHighScore(scores, finalScore) {
     $('.score-area').append(highScoreInput(finalScore));
   } else {
     let template = Handlebars.compile($(`high-score`).text());
-    $('.score-area').append(scores.forEach(element => template(element)));
-    if (finalScore > scores[scores.length - 1]) {
+    $('.score-area').append(scoresDB.forEach(element => template(element)));
+    if (finalScore > scoresDB[scoresDB.length - 1]) {
       $('.score-area').append(highScoreInput(finalScore));
     }
   }
 }
-function checkHighScore(event) {
+function checkHighScore() {
   $.ajax({
     url: `/score`,
     method: 'GET'
-  }).then(result => compileHighScore(result));
+  }).then(result => compileHighScore(result, totalScore));
 }
 function displayDetailRequest() {
   let searchquery = localStorage.getItem('name');
@@ -300,6 +388,7 @@ function initMap() {
   let southAmerica = { lat: -18.7832, lng: -55.4915 };
   let northAmerica = { lat: 37.0902, lng: -105.7129 };
   let africa = { lat: 8.7832, lng: 20.5085 };
+  let europe = { lat: 54.526, lng: 15.2551 };
   // The map, centered at Uluru
   let map = new google.maps.Map(document.getElementById('map'), {
     zoom: 1,
@@ -310,36 +399,30 @@ function initMap() {
     position: australia,
     map: map
   });
-  markerAustralia.addListener('click', function() {
-    inputRegion = 'Australia';
-  });
+
   markerAntartica = new google.maps.Marker({
     position: antartica,
     map: map
   });
-  markerAntartica.addListener('click', function() {
-    inputRegion = 'Antartica';
-  });
+
   markerSouthAmerica = new google.maps.Marker({
     position: southAmerica,
     map: map
   });
-  markerSouthAmerica.addListener('click', function() {
-    inputRegion = 'South America';
-  });
+
   markerNorthAmerica = new google.maps.Marker({
     position: northAmerica,
     map: map
   });
-  markerNorthAmerica.addListener('click', function() {
-    inputRegion = 'North America';
-  });
+
   markerAfrica = new google.maps.Marker({
     position: africa,
     map: map
   });
-  markerAfrica.addListener('click', function() {
-    inputRegion = 'Africa';
+
+  markerEurope = new google.maps.Marker({
+    position: europe,
+    map: map
   });
 }
 

@@ -43,3 +43,7 @@ li {
   grid-row: 4;
   height: 100%;
 }
+
+#game-state {
+  color: white;
+}
