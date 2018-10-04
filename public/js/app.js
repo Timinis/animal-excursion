@@ -67,17 +67,19 @@ function asiaListener() {
     google.maps.event.clearListeners(markerAsia, 'click');
     if (turns === 50) {
       compileHighScore(totalScore);
+    } else {
+      return compileQuestion(questionList, turns);
     }
-    return compileQuestion(questionList, turns);
   } else if (inputRegion && questionList[turns].region !== inputRegion) {
     console.log('im wrong');
     turns++;
     lives--;
+    google.maps.event.clearListeners(markerAsia, 'click');
     if (turns === 50 || lives === 0) {
       compileHighScore(totalScore);
+    } else {
+      return compileQuestion(questionList, turns);
     }
-    google.maps.event.clearListeners(markerAsia, 'click');
-    return compileQuestion(questionList, turns);
   }
 }
 let highScoreInput = finalScore => {
