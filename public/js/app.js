@@ -33,10 +33,19 @@ function apiGrab() {
 
 function startGame(event) {
   event.preventDefault();
-  lives = 5;
-  turns = 0;
-  totalScore = 0;
-  $('#start-game').css({ display: 'none' });
+
+  let turnCount = localStorage.getItem('turns');
+  console.log(turnCount);
+  if(turnCount === 0 || turnCount === undefined || turnCount === null){
+    lives = 5;
+    turns = 0;
+    totalScore = 0;
+    localStoragePersistence();
+  } else {
+    localStorageGet();
+    localStoragePersistence();
+  }
+  console.log('start game');
   $.ajax({
     url: `/start`,
     method: 'GET'
@@ -46,7 +55,7 @@ function startGame(event) {
 function compileQuestion(questions, turns) {
   inputRegion = null;
   questionList = questions;
-  console.log('i am called');
+
   let template = Handlebars.compile($(`.question-list`).text());
   $(`.question-area`).append(template(questions[turns]));
 
@@ -55,29 +64,179 @@ function compileQuestion(questions, turns) {
     localStorage.setItem('name', value);
     window.location.href = '/pages/details.html';
   });
+  console.log('turns', turns);
   markerAsia.addListener('click', asiaListener);
+  markerAfrica.addListener('click', africaListener);
+  markerAntartica.addListener('click', antarticaListener);
+  markerAustralia.addListener('click', australiaListener);
+  markerNorthAmerica.addListener('click', northAmericaListener);
+  markerSouthAmerica.addListener('click', southAmericaListener);
+  localStoragePersistence();
+}
+
+
+function localStorageGet() {
+  lives = localStorage.getItem('lives');
+  turns = localStorage.getItem('turns');
+  totalScore = localStorage.getItem('score');
+}
+
+function localStoragePersistence() {
+  localStorage.setItem('lives', lives);
+  localStorage.setItem('turns', turns);
+  localStorage.setItem('score', totalScore);
+}
+
+function removeQuestion() {
+  console.log('here');
+  $('.detail').hide();
+}
+
+function southAmericaListener() {
+  inputRegion = 'South America';
+
+  if (inputRegion && questionList[turns].region === inputRegion) {
+    turns++;
+    totalScore += 100;
+    google.maps.event.clearListeners(markerSouthAmerica, 'click');
+    if (turns === 50) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  } else if (inputRegion && questionList[turns].region !== inputRegion) {
+    turns++;
+    lives--;
+    google.maps.event.clearListeners(markerSouthAmerica, 'click');
+    if (turns === 50 || lives === 0) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  }
+}
+
+function northAmericaListener() {
+  inputRegion = 'North America';
+  if (inputRegion && questionList[turns].region === inputRegion) {
+    turns++;
+    totalScore += 100;
+    google.maps.event.clearListeners(markerNorthAmerica, 'click');
+    if (turns === 50) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  } else if (inputRegion && questionList[turns].region !== inputRegion) {
+    turns++;
+    lives--;
+    google.maps.event.clearListeners(markerNorthAmerica, 'click');
+    if (turns === 50 || lives === 0) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  }
+}
+
+function australiaListener() {
+  inputRegion = 'Australia';
+  if (inputRegion && questionList[turns].region === inputRegion) {
+    turns++;
+    totalScore += 100;
+    google.maps.event.clearListeners(markerAustralia, 'click');
+    if (turns === 50) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  } else if (inputRegion && questionList[turns].region !== inputRegion) {
+    turns++;
+    lives--;
+    google.maps.event.clearListeners(markerAustralia, 'click');
+    if (turns === 50 || lives === 0) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  }
+}
+
+function antarticaListener() {
+  inputRegion = 'Antartica';
+  if (inputRegion && questionList[turns].region === inputRegion) {
+    turns++;
+    totalScore += 100;
+    google.maps.event.clearListeners(markerAntartica, 'click');
+    if (turns === 50) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  } else if (inputRegion && questionList[turns].region !== inputRegion) {
+    turns++;
+    lives--;
+    google.maps.event.clearListeners(markerAntartica, 'click');
+    if (turns === 50 || lives === 0) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  }
+}
+
+function africaListener() {
+  inputRegion = 'Africa';
+  if (inputRegion && questionList[turns].region === inputRegion) {
+    turns++;
+    totalScore += 100;
+    google.maps.event.clearListeners(markerAfrica, 'click');
+    if (turns === 50) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  } else if (inputRegion && questionList[turns].region !== inputRegion) {
+    turns++;
+    lives--;
+    google.maps.event.clearListeners(markerAfrica, 'click');
+    if (turns === 50 || lives === 0) {
+      compileHighScore(totalScore);
+    } else {
+      removeQuestion();
+      return compileQuestion(questionList, turns);
+    }
+  }
 }
 function asiaListener() {
   inputRegion = 'Asia';
-  console.log(questionList);
   if (inputRegion && questionList[turns].region === inputRegion) {
-    console.log('im right');
     turns++;
     totalScore += 100;
     google.maps.event.clearListeners(markerAsia, 'click');
     if (turns === 50) {
       compileHighScore(totalScore);
     } else {
+      removeQuestion();
       return compileQuestion(questionList, turns);
     }
   } else if (inputRegion && questionList[turns].region !== inputRegion) {
-    console.log('im wrong');
     turns++;
     lives--;
     google.maps.event.clearListeners(markerAsia, 'click');
     if (turns === 50 || lives === 0) {
       compileHighScore(totalScore);
     } else {
+      removeQuestion();
       return compileQuestion(questionList, turns);
     }
   }
@@ -90,11 +249,12 @@ let highScoreInput = finalScore => {
 </form>`;
 };
 function compileHighScore(scores, finalScore) {
+  console.log(scores);
   if (finalScore === undefined) {
     finalScore = 0;
   }
-  if (!scores.length) {
-    console.log('I should work');
+  if (scores > 0 || scores !== undefined) {
+
     let template = Handlebars.compile($(`#no-score`).text());
     $('.score-area').append(
       template({ text: 'No Scores Yet, please submit your name' })
