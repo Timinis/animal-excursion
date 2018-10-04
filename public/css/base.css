@@ -12,33 +12,36 @@ body {
 #index-body {
   background-image: url('../images/leaves-background.jpg');
 }
+header {
+  grid-row: 1;
+}
 
 h1 {
-  grid-row: 1;
   text-align: center;
-  background-color: black;
+  background-color: grey;
   color: white;
-  height: 100%;
+  font-size: 50px;
+  padding: 10px;
 }
 
 ul {
-  grid-row: 2;
-  height: 100%;
   display: inline-block;
   width: 100%;
 }
+
 li {
-  font-size: 4vw;
-  background-color: black;
+  background-color: grey;
   color: white;
   text-align: center;
+  padding-bottom: 10px;
 }
+
 #index-button-container {
   grid-row: 3;
 }
 #map {
   grid-row: 4;
-  height: 100%;
+  width: 100%
 }
 
 #game-state {
