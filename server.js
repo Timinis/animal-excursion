@@ -32,6 +32,9 @@ app.get('/api-key', (req, res) => {
   res.send(process.env.GOOGLE_MAP_API);
 });
 
+app.post('/score-post', (req, res) => {
+  saveScoreDB(req.body.name, req.body.score);
+});
 // Object Creators for detail page render
 
 function animalDetails(request, response) {
@@ -76,7 +79,6 @@ const animalQuestionDisplay = response => {
             .catch(console.error);
         });
       } else {
-        console.log('database pull');
         response.send(results.rows);
       }
     })
@@ -123,8 +125,14 @@ const saveDetails = (description, id) => {
   client.query(SQL, values);
 };
 
+const saveScoreDB = (name, scores) => {
+  let SQL = `INSERT INTO highscore (name,score) VALUES ($1,$2)`;
+  let values = [name, scores];
+  return client.query(SQL, values);
+};
+
 function highScoreSend(request, response) {
-  const SQL = 'Select * from highscore';
+  const SQL = 'Select * from highscore ORDER BY score DESC';
   return client.query(SQL).then(result => {
     let scoreList = result.rows;
     response.send(scoreList);

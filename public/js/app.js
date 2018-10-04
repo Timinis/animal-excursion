@@ -6,7 +6,6 @@ $(document).ready(function() {
 
 $('#start-game').on('click', startGame);
 $('#check-score').on('click', checkHighScore);
-
 let inputRegion;
 let markerAsia;
 let markerAustralia;
@@ -58,6 +57,12 @@ function startGame() {
     url: `/start`,
     method: 'GET'
   }).then(result => compileQuestion(result, turns));
+}
+
+function postScore(event) {
+  console.log('Im clicked');
+  let scoreToBeSent = { name: $(`#enter-user`).val(), score: totalScore };
+  $.post('/score-post', scoreToBeSent);
 }
 
 function compileQuestion(questions, turns) {
@@ -332,7 +337,7 @@ function europeListener() {
 }
 
 let highScoreInput = finalScore => {
-  return `<form>
+  return `<form id="submit-form">
 <h2 type="text" id="current-score">${finalScore}</h2>
 <input type = "text" id = "enter-user" required></input>
 <button type = "submit" id = "enter-button">Submit Name</button>
@@ -348,11 +353,18 @@ function compileHighScore(scoresDB, finalScore) {
       template({ text: 'No Scores Yet, please submit your name' })
     );
     $('.score-area').append(highScoreInput(finalScore));
+    $('#submit-form').on('submit', postScore);
   } else {
-    let template = Handlebars.compile($(`high-score`).text());
-    $('.score-area').append(scoresDB.forEach(element => template(element)));
-    if (finalScore > scoresDB[scoresDB.length - 1]) {
+    let template = Handlebars.compile($(`.high-score`).text());
+    // console.log(template());
+
+    scoresDB.forEach(element => {
+      $('.score-area').append(template(element));
+    });
+
+    if (finalScore > scoresDB[scoresDB.length - 1] || scoresDB.length < 10) {
       $('.score-area').append(highScoreInput(finalScore));
+      $('#submit-form').on('submit', postScore);
     }
   }
 }
