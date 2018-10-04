@@ -20,93 +20,91 @@ app.get('/', (request, response) => {
 });
 
 app.get('/start', (request, response) => {
-  dataPull().then(list => {
-    animalQuestionDisplay(list, response);
-    animalDetailSave(list);
-  });
+  animalDetailSave();
+  animalQuestionDisplay(response);
 });
 
 app.get('/score', highScoreSend);
 
 // app.get('/details', animalDetailSave);
 
-// Object Creators for detail page render
-
-let questionList;
-
-function AnimalDetail(animalResult) {
-  (this.name = animalResult.title), (this.description = animalResult.extract);
-}
-
 //function to store the questions in a object oritented format
-const animalQuestionDisplay = (array, response) => {
+const animalQuestionDisplay = response => {
   let sendList = [];
   let SQL = 'SELECT * FROM animals;';
-  
-  return client.query(SQL)
-    .then(results=> {
+  return client
+    .query(SQL)
+    .then(results => {
       if (results.rows[0].image_url === null) {
-        array.forEach(object => {
+        results.rows.forEach(object => {
           let lowerName = object.name.toLowerCase();
           lowerName = lowerName.replace(/\s/g, '_');
           lowerName = lowerName.replace(`'`, '%27');
           let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=pageimages&titles=${lowerName}`;
           return superagent
             .get(url)
-            .then(result => {
-              let image = Object.values(result.body.query.pages)[0];
+            .then(res => {
+              let image = Object.values(res.body.query.pages)[0];
               let image_url = image.thumbnail.source;
               image_url = image_url.replace(/\/\w+px/, '/200px');
               object.image_url = image_url;
               sendList.push(object);
-              if (sendList.length === array.length) {
+              if (sendList.length === results.rows.length) {
                 response.send(sendList);
+                sendList.forEach(element => {
+                  saveImage(element.image_url, element.id);
+                });
               }
-              saveImage(object.image_url);
             })
             .catch(console.error);
         });
       } else {
+        console.log('database pull');
         response.send(results.rows);
       }
     })
     .catch(console.error);
 };
 
-const saveImage = (url) => {
-  let SQL = 'UPDATE animals SET image_url=$1;';
-  let values = [url];
+const saveImage = (url, id) => {
+  let SQL = `UPDATE animals SET image_url=$1 WHERE id = $2;`;
+  let values = [url, id];
   client.query(SQL, values);
 };
 
-const saveDetails = description => {
-  let SQL = 'UPDATE animals SET description=$1;';
-  let values = [description];
-  client.query(SQL, values);
-};
-
-function animalDetailSave(array) {
-  array.forEach(object => {
-    let lowerName = object.name.toLowerCase();
-    lowerName = lowerName.replace(/\s/g, '_');
-    lowerName = lowerName.replace(`'`, '%27');
-    let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${lowerName}`;
-    superagent
-      .get(url)
-      .then(result => {
-        let description = Object.values(result.body.query.pages)[0].extract;
-        saveDetails(description);
-      })
-      .catch(console.error);
-  });
-}
-function dataPull() {
-  const SQL = 'Select * from animals';
+function animalDetailSave() {
+  let SQL = 'SELECT * FROM animals;';
+  let emptyArray = [];
   return client.query(SQL).then(result => {
-    questionList = result.rows;
-    return questionList;
+    if (result.rows[0].description === null) {
+      result.rows.forEach(object => {
+        let lowerName = object.name.toLowerCase();
+        lowerName = lowerName.replace(/\s/g, '_');
+        lowerName = lowerName.replace(`'`, '%27');
+        let url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${lowerName}`;
+        superagent
+          .get(url)
+          .then(res => {
+            let description = Object.values(res.body.query.pages)[0].extract;
+            object.description = description;
+            emptyArray.push(object);
+            if (emptyArray.length === result.rows.length) {
+              emptyArray.forEach(element => {
+                saveDetails(element.description, element.id);
+              });
+            }
+          })
+          .catch(console.error);
+      });
+    }
   });
 }
+
+const saveDetails = (description, id) => {
+  let SQL = `UPDATE animals SET description=$1 WHERE id=$2;`;
+  let values = [description, id];
+  client.query(SQL, values);
+};
 
 function highScoreSend(request, response) {
   const SQL = 'Select * from highscore';
