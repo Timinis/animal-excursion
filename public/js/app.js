@@ -17,6 +17,7 @@ let markerSouthAmerica;
 let turns;
 let lives;
 let questionList;
+let totalScore;
 
 function apiGrab() {
   console.log('start map');
@@ -34,6 +35,7 @@ function startGame(event) {
   event.preventDefault();
   lives = 5;
   turns = 0;
+  totalScore = 0;
   console.log('start game');
   $.ajax({
     url: `/start`,
@@ -59,11 +61,21 @@ function asiaListener() {
   inputRegion = 'Asia';
   console.log(questionList);
   if (inputRegion && questionList[turns].region === inputRegion) {
+    console.log('im right');
     turns++;
+    totalScore += 100;
     google.maps.event.clearListeners(markerAsia, 'click');
+    if (turns === 50) {
+      compileHighScore(totalScore);
+    }
     return compileQuestion(questionList, turns);
   } else if (inputRegion && questionList[turns].region !== inputRegion) {
+    console.log('im wrong');
     turns++;
+    lives--;
+    if (turns === 50 || lives === 0) {
+      compileHighScore(totalScore);
+    }
     google.maps.event.clearListeners(markerAsia, 'click');
     return compileQuestion(questionList, turns);
   }
