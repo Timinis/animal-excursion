@@ -28,16 +28,20 @@ app.get('/score', highScoreSend);
 
 app.get('/details', animalDetails);
 
+app.get('/api-key', (req, res) => {
+  res.send(process.env.GOOGLE_MAP_API);
+});
 
 // Object Creators for detail page render
 
 let questionList;
 
-function animalDetails (request, response) {
+function animalDetails(request, response) {
   const SQL = `Select * from animals where name=$1;`;
   const value = [request.query.data];
 
-  client.query(SQL, value)
+  client
+    .query(SQL, value)
     .then(results => response.send(results.rows[0]))
     .catch(console.error);
 }
@@ -50,7 +54,6 @@ const animalQuestionDisplay = response => {
   return client
     .query(SQL)
     .then(results => {
-
       if (results.rows[0].image_url === null) {
         results.rows.forEach(object => {
           let lowerName = object.name.toLowerCase();

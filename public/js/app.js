@@ -4,9 +4,21 @@ $(document).ready(function() {
   displayDetailRequest(); //display handlebars for details page
 });
 
-
 $('#start-game').on('click', startGame);
 $('#check-score').on('click', checkHighScore);
+
+function apiGrab() {
+  console.log('start map');
+  $.ajax({
+    url: `/api-key`,
+    method: 'GET'
+  }).then(result =>
+    $(`#map-script`).append(
+      `<script async defer src="https://maps.googleapis.com/maps/api/js?key=${result}&callback=initMap"></script>`
+    )
+  );
+}
+
 function startGame(event) {
   event.preventDefault();
   console.log('start game');
@@ -66,7 +78,7 @@ function displayDetailRequest() {
   $.ajax({
     url: '/details',
     method: 'GET',
-    data: {data: searchquery}
+    data: { data: searchquery }
   }).then(result => displayDetail(result));
 }
 
@@ -130,3 +142,5 @@ function initMap() {
     console.log('Africa is selected');
   });
 }
+
+apiGrab();
