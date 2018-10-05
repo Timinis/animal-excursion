@@ -347,6 +347,7 @@ function compileHighScore(scoresDB, finalScore) {
   if (finalScore === undefined) {
     finalScore = 0;
   }
+  scoresDB.splice(5, 1);
   if (!scoresDB.length) {
     let template = Handlebars.compile($(`#no-score`).text());
     $('.score-area').append(
@@ -362,7 +363,8 @@ function compileHighScore(scoresDB, finalScore) {
       $('.score-area').append(template(element));
     });
 
-    if (finalScore > scoresDB[scoresDB.length - 1] || scoresDB.length < 6) {
+    if (finalScore > scoresDB[scoresDB.length - 1].score) {
+      console.log(scoresDB);
       $('.score-area').append(highScoreInput(finalScore));
       $('#submit-form').on('submit', postScore);
     }
