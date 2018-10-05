@@ -1,28 +1,43 @@
+body.about-us {
+    text-align: center;
+    display: flex wrap;
+}
+
+
+img.about-us, img.detail {
+    margin: 5vh auto;
+    width: 50vw;
+}
+
+h3.about-us {
+    font-size: 5vw;
+    font-weight: medium;
+}
+
+p.about-us {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 @media only screen and (min-width: 769px) {
     body {
-        width: 70vw;
-        margin: auto;
+        width: 100vw;
     }
 
     main.about-us {
-        display: flex;
+        display: flex; 
         justify-content: center;
-    }
+    } 
 
     div.about-us {
-        padding: 30px;
+        padding: 20px;
         text-align: center;
-    }
-
-    header {
-        grid-row: 1;
+        max-width: 30%;
     }
 
     h1 {
-        background-color: grey;
         color: white;
-        font-size: 50px;
-        padding: 10px;
+        font-size: 5vw;
+        padding: 2vw;
     }
       
     ul {
@@ -31,9 +46,18 @@
     }
     
     li {
-        background-color: grey;
+        background-color: black;
         color: white;
         text-align: center;
-        padding-bottom: 10px;
     }
+
+    img.about-us {
+        width: 15vw;
+    }
+
+    h3.about-us {
+        padding: 4vw 0vw 2vw 0vw;
+        font-size: 3vw;
+        line-height: 4vw;
+      }
 }
