@@ -33,7 +33,6 @@ function apiGrab() {
 
 function startGame() {
   event.preventDefault();
-
   let turnCount = localStorage.getItem('turns');
   let livesCount = localStorage.getItem('turns');
   console.log(turnCount);
@@ -363,7 +362,7 @@ function compileHighScore(scoresDB, finalScore) {
       $('.score-area').append(template(element));
     });
 
-    if (finalScore > scoresDB[scoresDB.length - 1] || scoresDB.length < 10) {
+    if (finalScore > scoresDB[scoresDB.length - 1] || scoresDB.length < 6) {
       $('.score-area').append(highScoreInput(finalScore));
       $('#submit-form').on('submit', postScore);
     }
