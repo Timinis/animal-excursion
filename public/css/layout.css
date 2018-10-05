@@ -49,7 +49,7 @@ p.about-us {
         background-color: black;
         color: white;
         text-align: center;
-        height: 5vh;
+        height: auto;
         padding: 1vh 0;
     }
 
@@ -62,4 +62,10 @@ p.about-us {
         font-size: 3vw;
         line-height: 4vw;
       }
+
+    div.detail > img {
+        margin: 1vh auto;
+        width: auto;
+    }
+    
 }

@@ -77,6 +77,12 @@ a:hover, a:active, a:hover.detail, a:active.detail, button:hover, button:active,
   padding: 1vh;
 }
 
+input {
+  width: 35vw;
+  height: 5vh;
+  margin: 1vh auto;
+}
+
 img.about-us {
   width: 10vw;
 }
@@ -105,10 +111,7 @@ p.detail {
 
 img.detail {
   margin: 2vh auto;
-}
-
-#enter-user {
-  width: 10
+  width: 25%;
 }
 
 p.index {
@@ -154,8 +157,7 @@ div.detail > h3 {
 }
 
 div.detail > img {
-  width: auto;
-  margin: 1vh 2vw;
+  margin: 1vh auto;
 }
 
 .fab {
@@ -174,4 +176,13 @@ h2.detail {
   font-size: 5vh;
   background-color: orange;
   line-height: 7vh;
+}
+
+.detail-button {
+  width: 30vw;
+}
+
+#current-score {
+  font-size: 4vh;
+  text-align: center;
 }
