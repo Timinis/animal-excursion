@@ -78,7 +78,7 @@ function compileQuestion(questions, turns) {
     window.location.href = '/pages/details.html';
   });
   $('#game-state').html(
-    `<h3>Lives: ${lives}</h3><h3>Score: ${totalScore}</h3>`
+    `<h3 font-size: 4vh><strong>Lives: ${lives} <<<<>>>> Score: ${totalScore}</strong></h3>`
   );
   markerAsia.addListener('click', asiaListener);
   markerAfrica.addListener('click', africaListener);
@@ -338,9 +338,10 @@ function europeListener() {
 
 let highScoreInput = finalScore => {
   return `<form id="submit-form">
-<h2 type="text" id="current-score">${finalScore}</h2>
-<input type = "text" id = "enter-user" required></input>
-<button type = "submit" id = "enter-button">Submit Name</button>
+<h2 type="text" id="current-score">Your Final Score: ${finalScore}</h2>
+<input type="text" id = "enter-user" height="4vh" width="34vw"
+margin="1vh auto" required placeholder="Enter Your Name"></input>
+<button type="submit" id = "enter-button">Submit</button>
 </form>`;
 };
 function compileHighScore(scoresDB, finalScore) {
