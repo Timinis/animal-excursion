@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/public/images/favicon-leaf.ico" type="image/x-icon"/ >
     <title>Animal Excursion</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/base.css">
@@ -41,8 +42,9 @@
         
     </header>
     <main>
+        <p class="index">Welcome to Animal Excursion! <br/>When you click the "EXCURSION!" button below you will be shown pictures of endangered animals from all over the world. You can click on the "Learn More" button to learn more about the animal and then click the marker on the map that you think corresponds with the animal's home region. Every right answer counts for 100 points and every wrong answer will reduce your number of lives by one.  <br/>Bon voyage!</p>
             <div id='index-button-container'>
-                    <button id="start-game" type="button" class="index">EXCURSION!</button>
+                    <button id="start-game" type="button" class="index" id="excursion-button">EXCURSION!</button>
             </div>
         <div id="game-state"></div>
         
@@ -50,7 +52,7 @@
     
             </div>
         <div id="map"></div>
-        <div class="score-area">
+        <div class="score-area"></div>
         <ul id="nav-bar">
             <li><a href="pages/about-us.html" class="index">About Us</a></li>
         </ul>

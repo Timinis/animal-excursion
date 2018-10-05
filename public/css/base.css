@@ -22,7 +22,6 @@ button {
   font-family: 'Mali', cursive;
 }
 
-
 h1 {
   font-size: 8vw;
   text-align: center;
@@ -47,29 +46,47 @@ li {
 #map {
   height: 400px; /* The height is 400 pixels */
   width: 100%;
+  margin-top: 1vh;
 }
 
 #index-button-container {
   display: flex;
+  text-align: center;
   height: 8vh;
 }
 
-a:link, a:visited {
+a:link, a:visited, a:link.detail, a:visited.detail, button.index, .fab:link, .fab:visited, button {
   background-color: black;
   color: white;
-  padding: 2vw 2vw;
   text-align: center; 
   text-decoration: none;
   display: inline-block;
   border: none;
+  border-radius: 5px;
+  padding: 1vh;
+  margin: auto;
 }
 
-a:hover, a:active {
+button.index {
+  margin: 1vh auto;
+}
+
+a:hover, a:active, a:hover.detail, a:active.detail, button:hover, button:active, .fab:hover, .fab:active {
   background-color: grey;
+  cursor: pointer;
+  padding: 1vh;
 }
 
 img.about-us {
   width: 10vw;
+}
+
+.scores {
+  text-align: center;
+  font-size: 4vh;
+  line-height: 6vh;
+  border: dotted 1vh gold;
+  margin: 1vh;
 }
 
 p.about-us {
@@ -80,6 +97,81 @@ p.detail, h2.detail {
   text-align: center;
 }
 
+p.detail {
+  font-family: Arial, Helvetica, sans-serif;
+  background: white;
+  padding: 2vh;
+}
+
 img.detail {
   margin: 2vh auto;
+}
+
+#enter-user {
+  width: 10
+}
+
+p.index {
+  text-align: center;
+  background-color: black;
+  color: white;
+  line-height: 5vh;
+  padding: 2vw;
+  font-size: 2vh;
+}
+
+#excursion-button {
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%
+}
+
+#game-state {
+  text-align: center;
+  padding: 2vh 0vh;
+  background-color: orange;
+  margin-top: 1vh;
+}
+
+h3 {
+  font-weight: 700;
+  line-height: 3.5vh;
+}
+
+div.detail {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.detail > h3 {
+  background-color: black;
+  color: white;
+  font-size: 4vw;
+  line-height: 6vw;
+  width: 100%;
+  margin-bottom: 1vh;
+}
+
+div.detail > img {
+  width: auto;
+  margin: 1vh 2vw;
+}
+
+.fab {
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  font-size: 5vh;
+  margin: 0 1vw;
+}
+
+h2.detail {
+  width: 100%;
+  font-size: 5vh;
+  background-color: orange;
+  line-height: 7vh;
 }

@@ -49,6 +49,8 @@ p.about-us {
         background-color: black;
         color: white;
         text-align: center;
+        height: 5vh;
+        padding: 1vh 0;
     }
 
     img.about-us {
