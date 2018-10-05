@@ -54,18 +54,24 @@ p.about-us {
     }
 
     img.about-us {
-        width: 15vw;
+        width: 10vw;
     }
 
     h3.about-us {
-        padding: 4vw 0vw 2vw 0vw;
-        font-size: 3vw;
-        line-height: 4vw;
+        padding: 1vw 0vw 2vw 0vw;
+        font-size: 2vw;
+        line-height: 3vw;
       }
 
-    div.detail > img {
+    #detail-page-img {
         margin: 1vh auto;
-        width: auto;
+        width: 80%;
+        height: 80%;
+    }
+
+    div.detail > img {
+        width: 50%;
+        height: 20%;
     }
     
 }

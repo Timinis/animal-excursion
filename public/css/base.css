@@ -20,6 +20,7 @@ button {
   height: 7vh;
   width: 50vw;
   font-family: 'Mali', cursive;
+  margin: 1vh auto;
 }
 
 h1 {
@@ -27,7 +28,7 @@ h1 {
   text-align: center;
   background-color: black;
   color: white;
-  line-height: 9vw;
+  line-height: 6vw;
 }
 
 li {
@@ -78,7 +79,7 @@ a:hover, a:active, a:hover.detail, a:active.detail, button:hover, button:active,
 }
 
 input {
-  width: 35vw;
+  width: 36vw;
   height: 5vh;
   margin: 1vh auto;
 }
@@ -166,9 +167,8 @@ div.detail > img {
   font-style: normal;
   font-variant: normal;
   text-rendering: auto;
-  line-height: 1;
-  font-size: 5vh;
-  margin: 0 1vw;
+  font-size: 4vh;
+  margin: 1vw;
 }
 
 h2.detail {
@@ -179,10 +179,27 @@ h2.detail {
 }
 
 .detail-button {
-  width: 30vw;
+  width: 20vw;
+  margin: 
 }
 
 #current-score {
   font-size: 4vh;
   text-align: center;
+}
+
+li.index {
+  margin: 1vh auto;
+}
+
+#enter-button {
+  width: 36vw;
+  margin: 1vh auto;
+}
+
+#high-score-header {
+  font-weight: bold;
+  font-size: 5vh;
+  text-align: center;
+  padding: 1vh 0;
 }
