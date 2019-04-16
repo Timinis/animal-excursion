@@ -1,6 +1,6 @@
 # Animal Excursion
 ## Introduction
-This site is called Animal Excursion and was built by Jessica Lovell, Timothy Li, and Erin Eckerman. It is deployed on heroku: [here](https://animal-excursion.herokuapp.com/)
+This site is called Animal Excursion and was built by Jessica Lovell ([see contribution](https://gist.github.com/JessLovell/e15a91ba2d876eb07780e53a9e6772cd)), Timothy Li, and Erin Eckerman. It is deployed on heroku: [here](https://animal-excursion.herokuapp.com/)
 
 ## Problem Domain
 This project is intended to address a general lack of awareness of what animals are currently endangered in a fun and interactive manner.
